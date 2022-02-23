@@ -10,6 +10,7 @@ packages<-c("tidyverse", "shiny", "leaflet",
             "shinyWidgets","shinyjs","magrittr", 
             "jsonlite", "Rcrawler", "rvest",
             "feather")
+
 check.packages(packages)
 
 rm(list = c("check.packages","packages"))
