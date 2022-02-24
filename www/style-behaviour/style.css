@@ -22,9 +22,11 @@
 /*******************************************/
 
 .hola{
-     display: none;
+     display: block;
 }
-
+.row2{
+     background-color: aqua;
+}
 
 /******************************************
 /* LAYOUT
