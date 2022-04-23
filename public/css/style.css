@@ -1,0 +1,73 @@
+/* Box Model Hack */
+* {
+    box-sizing: border-box;
+}
+
+/* Clear fix hack */
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clear {
+   clear: both;
+}
+
+/******************************************
+/* BASE STYLES
+/*******************************************/
+html{
+    font-size: 62.5%;
+}
+fieldset{
+    border: none;
+}
+main{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+.login{
+    height: 35rem;
+    background-color: gray;
+    font-size: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+fieldset{
+    flex-grow: 2;
+    padding: 1rem 4rem;
+    display: flex;
+    flex-direction: column;
+    place-content: center flex-start;
+    gap: 1.5rem;
+}
+#submitBtn{
+    margin: 3rem 0;
+    padding: 1.5rem 3rem;
+    background-color: rebeccapurple;
+    border-radius: 10px;
+}
+#submitBtn:hover{
+    background-color: aqua;
+    cursor: pointer;
+    
+}
+#submitBtn:focus{
+    background-color: green;
+}
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/

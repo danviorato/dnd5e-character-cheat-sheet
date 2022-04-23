@@ -1,0 +1,27 @@
+{
+  "name": "dnd5e-character-cheat-sheet",
+  "version": "1.0.0",
+  "description": "D&D 5e Combat Cheatsheet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node js/index.js",
+    "dev": "nodemon js/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danviorato/dnd5e-character-cheat-sheet.git"
+  },
+  "author": "Daniel Viorato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danviorato/dnd5e-character-cheat-sheet/issues"
+  },
+  "homepage": "https://github.com/danviorato/dnd5e-character-cheat-sheet#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
