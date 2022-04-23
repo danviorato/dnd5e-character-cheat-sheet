@@ -3,7 +3,20 @@ const fs = require("fs");
 const http = require("http");
 const request = require("request");
 
+let jsonTest = request('https://github.com/5etools-mirror-1/5etools-mirror-1.github.io/raw/master/data/spells/spells-phb.json', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        let importedJSON = JSON.parse(body);
+        return importedJSON;
+    }
+})
 
+let csvTest = []
+fs.readFile("./public/csv/jsonLinks.txt", "utf8", (err, data) => {
+    if (err) throw err;
+    csvTest.push(data.split(";"))
+})
+
+console.log(csvTest)
 
 const server = http.createServer((req, res) => { 
     //Build file path
