@@ -38,7 +38,6 @@ const server = http.createServer((req, res) => {
             break;
         case ".json":
             contentType = "application/json"
-            console.log(extName, filePath)
             break;
         case ".png":
             contentType = "image/png"

@@ -1,8 +1,0 @@
-HTML:
-	Content and structureof login page
-CSS:
-	Style
-JS:
-	Interactivity, behaviour, and building responsive content
-R:
-	Data preprocessing, hosting, and Framework
