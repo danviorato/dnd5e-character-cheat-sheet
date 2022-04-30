@@ -1,22 +1,9 @@
 const path = require("path");
 const fs = require("fs");
 const http = require("http");
+const https = require("https");
 const request = require("request");
-
-let jsonTest = request('https://github.com/5etools-mirror-1/5etools-mirror-1.github.io/raw/master/data/spells/spells-phb.json', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        let importedJSON = JSON.parse(body);
-        return importedJSON;
-    }
-})
-
-let csvTest = []
-fs.readFile("./public/csv/jsonLinks.txt", "utf8", (err, data) => {
-    if (err) throw err;
-    csvTest.push(data.split(";"))
-})
-
-console.log(csvTest)
+const utilities = require("./public/js/functions.js");
 
 const server = http.createServer((req, res) => { 
     //Build file path
@@ -26,54 +13,64 @@ const server = http.createServer((req, res) => {
     let extName = path.extname(filePath)
 
     // Initial content type
-    let contentType = "text/html"
-
-    // Check ext and set content type
-    switch(extName){
-        case ".js":
-            contentType = "text/javascript"
-            break;
-        case ".css":
-            contentType = "text/css"
-            break;
-        case ".json":
-            contentType = "application/json"
-            break;
-        case ".png":
-            contentType = "image/png"
-            break;
-        case ".jpg":
-            contentType = "image/jpg"
-            break;
-    }
+    let contentType = utilities.getContentType(extName)
 
     // Check if contentType is text/html but no .html file extension
     //if (contentType == "text/html" && extname == "") filePath += ".html";
     
     // log the filePath
-    console.log(filePath);
+    //console.log(filePath);
 
     //Read file
-    fs.readFile(filePath, (err, content) => {
-        if(err) {
-            if(err.code == "ENOENT") {
-                // Page not found
-                fs.readFile(path.join(__dirname,"html","index.html"), (err, content)=>{
-                    res.writeHead(200, {"Content-Type": contentType});
-                    res.end(content, "utf8");
-                });
-            } else {
-                res.writeHead(500);
-                res.end(`Server Error: ${err.code}`);
-            };
+    if (req.method === "GET"){
+        if(req.url.includes("api")){
+            if(req.url.includes("getData")){
+                contentType = utilities.getContentType(".json")
+                filePath = path.join(__dirname, "public","json","data.json")
+                fs.readFile(filePath, (err, content) => {
+                    res.writeHead(200, {"Content-Type": contentType})
+                    let jsonArray = JSON.parse(content).map(x => JSON.parse(x[0]))
+                    let query = req.url.slice(req.url.indexOf("=")+1).toLowerCase()
+                    let dataResponse = JSON.stringify(req.url.includes("?s=") ? jsonArray.filter(x => query in x) : jsonArray)
+                    res.end(dataResponse, "utf8")
+                })
+            }
+            /*
+            let jsonTest = request('https://github.com/5etools-mirror-1/5etools-mirror-1.github.io/raw/master/data/actions.json', function (error, response, body) {
+                    let myBody = JSON.parse(body)
+                    res.end(JSON.stringify(myBody))
+                })   
+            fs.readFile("./public/csv/jsonLinks.txt", "utf8", async (err, data) => {
+                if (err) throw err;
+                const jsonArr = await JSON.stringify(utilities.getJsons(data))
+                res.end(jsonArr)
+            })*/
         } else {
-            //Success
+            if (req.url === "/character-creation") filePath = path.join(__dirname, "public","character-creation.html")
             fs.readFile(filePath, (err, content) => {
-                res.writeHead(200, {"Content-Type": contentType});
-                res.end(content, "utf8")
+                if(err) {
+                    if(err.code == "ENOENT") {
+                        // Page not found
+                        fs.readFile(path.join(__dirname,"public","index.html"), (err, content)=>{
+                            res.writeHead(200, {"Content-Type": contentType});
+                            res.end(content, "utf8");
+                        });
+                    } else {
+                        res.writeHead(500);
+                        res.end(`Server Error: ${err.code}`);
+                    };
+                } else {
+                    //Success
+                    fs.readFile(filePath, (err, content) => {
+                        res.writeHead(200, {"Content-Type": contentType})
+                        res.end(content, "utf8")
+                    })
+                }
             })
         }
-    })
+    } else if (req.method === "POST"){
+
+    }
 });
 
 const PORT = process.env.PORT || 5000;

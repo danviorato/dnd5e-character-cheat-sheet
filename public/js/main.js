@@ -32,6 +32,9 @@ document.getElementById("createNew").innerText = "Create new character"
 document.querySelector("#characterList").addEventListener("click", event => myAlert(event.target))
 
 function myAlert(event){
-  console.log(event.innerText)
-  window.location.href = "../character-creation"
+  if(event.id === "createNew") {
+    window.location.href = "../character-creation"
+  } else {
+    console.log(event.id)
+  }
 }

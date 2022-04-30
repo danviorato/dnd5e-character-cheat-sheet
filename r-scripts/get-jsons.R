@@ -49,7 +49,9 @@ jsonStrings <- lapply(1:length(rawLinks), function(x){
 })
 
 for (x in 1:length(jsonStrings)) {
-        write_json(jsonStrings[[x]],paste0("../json/",jsonNames[x],".json"))
+        write_json(jsonStrings[[x]],paste0("../public/json/",jsonNames[x],".json"))
 }
 
-write_file(paste(rawLinks, collapse = ";"), "../csv/jsonLinks.txt")
+write_json(jsonStrings,"../public/json/data.json")
+
+write_file(paste(rawLinks, collapse = ";"), "../public/csv/jsonLinks.txt")
