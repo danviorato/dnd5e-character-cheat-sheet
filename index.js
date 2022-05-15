@@ -24,17 +24,23 @@ const server = http.createServer((req, res) => {
     //Read file
     if (req.method === "GET"){
         if(req.url.includes("api")){
-            if(req.url.includes("getData")){
-                contentType = utilities.getContentType(".json")
-                filePath = path.join(__dirname, "public","json","data.json")
-                fs.readFile(filePath, (err, content) => {
-                    res.writeHead(200, {"Content-Type": contentType})
-                    let jsonArray = JSON.parse(content).map(x => JSON.parse(x[0]))
-                    let query = req.url.slice(req.url.indexOf("=")+1).toLowerCase()
-                    let dataResponse = JSON.stringify(req.url.includes("?s=") ? jsonArray.filter(x => query in x) : jsonArray)
-                    res.end(dataResponse, "utf8")
-                })
-            }
+            contentType = utilities.getContentType(".json")
+            filePath = path.join(__dirname, "public","json","data.json")
+            fs.readFile(filePath, (err, content) => {
+                res.writeHead(200, {"Content-Type": contentType})
+                let jsonArray = JSON.parse(content).map(x => JSON.parse(x[0]))
+                let dataResponse
+                let query
+                if(req.url.includes("getData")){
+                    query = req.url.slice(req.url.indexOf("s=")+2).toLowerCase()
+                    dataResponse = JSON.stringify(req.url.includes("?s=") ? jsonArray.filter(x => query in x) : jsonArray)
+                } else if (req.url.includes("getProperties")) {
+                    query = [req.url.slice(req.url.indexOf("s=")+2,req.url.indexOf("&")).toLowerCase(),
+                    req.url.slice(req.url.indexOf("p=")+2)]
+                    dataResponse = JSON.stringify(utilities.reduceObjectsToArray(jsonArray,query))
+                }
+                res.end(dataResponse, "utf8")
+            })
             /*
             let jsonTest = request('https://github.com/5etools-mirror-1/5etools-mirror-1.github.io/raw/master/data/actions.json', function (error, response, body) {
                     let myBody = JSON.parse(body)

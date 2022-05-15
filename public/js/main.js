@@ -29,9 +29,9 @@ if(localStorage.getItem("characters")){
 characterList.appendChild(document.createElement("li")).id = "createNew"
 document.getElementById("createNew").innerText = "Create new character"
 
-document.querySelector("#characterList").addEventListener("click", event => myAlert(event.target))
+document.querySelector("#characterList").addEventListener("click", event => chooseChar(event.target))
 
-function myAlert(event){
+function chooseChar(event){
   if(event.id === "createNew") {
     window.location.href = "../character-creation"
   } else {

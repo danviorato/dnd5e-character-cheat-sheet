@@ -1,26 +1,34 @@
-//document.querySelector("h1").addEventListener("click", myAlert())
+import { SingleSelectInput } from "./classes.js"
+//const SingleSelectInput = myClasses.myClasses[0]
 
-let myData;
-async function myAlert(){
-    await fetch("../api")
-      .then(res => res.json()) // parse response as JSON
-      .then(async data => {
-        await data.map(x => JSON.parse(x[0]))
-      })
-      .catch(err => {
-          console.log(`error ${err}`)
-      });
+
+(async function(){
+  const races = await getArrays('../api/getProperties?s=race&p=name')
+  const raceSelection = new SingleSelectInput("race", races, "#raceSelectionArea","#raceOptions")
+  raceSelection.init()
+})()
+
+async function getJsons(url){
+  let response = await fetch(url);
+  let data = await response.json();
+  return data;
 }
 
-async function hailMary(){
-  let response = await fetch('../api/getData');
+async function getArrays(url){
+  let response = await fetch(url);
   let data = await response.json();
 //  data = data.map(x => JSON.parse(x[0]))
   return data;
 }
 
+/*
 (async function(){
-  myData = await hailMary()
+  let myData = await getJsons('../api/getData?s=class')
   console.log(myData)
-//  console.log(myData[0].race.filter(x=> x.name === "Aarakocra").map(x=>x.source))
-})()
+})();
+
+// Select the race
+(async function(){
+  let raceVar = await getArrays('../api/getProperties?s=race&p=name')
+  console.log(raceVar.filter(a => a.length === 26))
+})();*/

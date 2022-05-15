@@ -13,7 +13,55 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<h1>Create new character</h1>
-		<script type="text/javascript" src="js/charCreation.js"></script>
+		<header>
+			<h1><a href="/">Create new character</a></h1>
+		</header>
+		<section>
+			<label for="charName">Name</label>
+			<input type="text" id = "charName">
+			<ul>
+				<li id = "optRace">Race</li>
+				<li id = "optClass">Class</li>
+				<li id = "optFeats">Feats</li>
+			</ul>
+		</section>
+		<main>
+			<section id = "secRace" class="creationSection">
+				<label for="charRace">Race:</label>
+				<section class="singleSelect" >
+					<section class = "ssArea" id = "raceSelectionArea">
+						<span class="ssSelection" id = "raceSelection"></span>
+						<input type="text" name="" class = "ssInput" id="raceInput">
+					</section>
+					<section class = "ssOptions hidden" id="raceOptions">
+						<ul class="ssOptionList"></ul>
+					</section>
+				</section>
+				<label for="charRaceSrc">Race Source:</label>
+				<select name="raceSrc" id="charRaceSrc"></select>
+				<label for="charSubrace">Subrace:</label>
+				<select name="subrace" id="charSubrace"></select>
+				<label for="charSubraceSrc">Subrace Source:</label>
+				<select name="subraceSrc" id="charSubraceSrc"></select>
+				<input type="text" name="prueba" list="test">
+				<datalist id = "test">
+					<option value="Prueba"></option>
+					<option value="Hola"></option>
+					<option value="Adios"></option>
+				</datalist>
+			</section>	
+			<section id = "secClass" class="creationSection">
+				<label for="charClass">Class:</label>
+				<select name="class" id="charClass"></select>
+				<label for="charClassSrc">Class Source:</label>
+				<select name="raceSrc" id="charRaceSrc"></select>
+				<label for="charSubclass">Subclass:</label>
+				<select name="subclass" id="charSubclass"></select>
+				<label for="charSubraceSrc">Subclass Source:</label>
+				<select name="subclassSrc" id="charSubclassSrc"></select>
+			</section>
+			<section id = "secFeats" class="creationSection"></section>
+		</main>
+		<script type="module" src="js/charCreation.js"></script>
 	</body>
 </html>
