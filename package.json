@@ -19,10 +19,11 @@
   },
   "homepage": "https://github.com/danviorato/dnd5e-character-cheat-sheet#readme",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "node-fetch": "^3.2.4",
-    "request": "^2.88.2"
+    "express": "^4.18.1"
   }
 }

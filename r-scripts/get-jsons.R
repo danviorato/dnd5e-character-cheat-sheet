@@ -44,14 +44,22 @@ getNameUrl <- function(x){
                 str_remove_all(pattern = "(spells|data|class)/|.json")
 }
 jsonNames <- getNameUrl(rawLinks)
-jsonStrings <- lapply(1:length(rawLinks), function(x){
+jsonStrings <- sapply(1:length(rawLinks), function(x){
         read_file(rawLinks[[x]]) %>% str_remove_all(pattern = "\\n|\\t")
 })
 
 for (x in 1:length(jsonStrings)) {
-        write_json(jsonStrings[[x]],paste0("../public/json/",jsonNames[x],".json"))
+        write_json(jsonStrings[[x]],paste0("../api/json/",jsonNames[x],".json"))
 }
 
-write_json(jsonStrings,"../public/json/data.json")
+allClasses <- str_which(jsonNames,"class")
+classesJSON <- paste0('{"classes":[',paste(jsonStrings[allClasses],collapse = ","),']}')
 
-write_file(paste(rawLinks, collapse = ";"), "../public/csv/jsonLinks.txt")
+allSpells <- str_which(jsonNames,"spell")
+spellsJSON <- paste0('{"spells":[',paste(jsonStrings[allSpells],collapse = ","),']}')
+
+shortJsonStrings <- c(reduce(jsonStrings[-c(allSpells,allClasses)], c),classesJSON, spellsJSON)
+
+write_json(shortJsonStrings,"../api/json/data.json")
+
+write_file(paste(rawLinks, collapse = ";"), "../api/csv/jsonLinks.txt")

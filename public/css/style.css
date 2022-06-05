@@ -24,6 +24,11 @@ html{
     font-size: 62.5%;
 }
 
+.ssOptions{
+    background-color: azure;
+    max-height: 8rem;
+    overflow-y: scroll;
+}
 
 /******************************************
 /* LAYOUT
