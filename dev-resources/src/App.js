@@ -1,24 +1,17 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { useState } from "react";
+import CharacterSelection from "./components/characterSelection.js";
+import ThemeSelect from "./components/themeSelect.js";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>D&D 5e Combat Cheat Sheet</h1>
+      {currentPage === 1 && <CharacterSelection />}
+      {currentPage === 2 && <CharacterSelection />}
+      {currentPage === 3 && <CharacterSelection />}
+      <ThemeSelect />
+    </>
   );
 }
 

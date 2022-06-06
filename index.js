@@ -1,9 +1,13 @@
 const express = require("express");
 const { append } = require("express/lib/response");
 const path = require("path");
+const cors = require("cors");
 
 // Init server
 const app = express();
+
+// Allow CORS
+app.use(cors());
 
 // Homepage Route
 //app.get("/", (req, res) =>
