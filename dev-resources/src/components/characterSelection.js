@@ -9,21 +9,26 @@ if (!Boolean(existingCharacters)) {
 
 const characterSelection = () => {
   return (
-    <>
-      <h2>Select your Character!</h2>
-      <ul className="characterSelection">
-        {existingCharacters.map((char, idx) => (
+    <section id="page1">
+      <section id="characterSelection">
+        <h1>
+          D&D 5e <br></br>Combat Cheat Sheet
+        </h1>
+        <h2>Select your Character!</h2>
+        <ul className="characterSelection">
+          {existingCharacters.map((char, idx) => (
+            <SavedCharacters
+              key={idx}
+              text={"Get existing character names here"}
+            />
+          ))}
           <SavedCharacters
-            key={idx}
-            text={"Get existing character names here"}
+            key={existingCharacters.length}
+            text="Create new character"
           />
-        ))}
-        <SavedCharacters
-          key={existingCharacters.length}
-          text="Create new character"
-        />
-      </ul>
-    </>
+        </ul>
+      </section>
+    </section>
   );
 };
 
