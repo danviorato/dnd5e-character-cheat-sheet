@@ -38,24 +38,37 @@ li {
   list-style-type: none;
 }
 
+#themeSelect #themeOptions .hidden {
+  visibility: hidden;
+  position: absolute;
+}
+
 /******************************************
 /* SASS VARIABLES
 /*******************************************/
 $themes: "light", "dark";
+$primaryColor: null;
+$accentColor: null;
 
 /******************************************
 /* MIXINS
 /*******************************************/
 
 //Character creation
-@mixin characterSelection($bgColor, $acColor, $titleColor, $otherColor) {
+@mixin characterSelection(
+  $bgColor,
+  $acColor,
+  $titleColor,
+  $otherColor,
+  $inverse
+) {
   padding-top: 10vh;
   display: flex;
   justify-content: center;
 
   #characterSelection {
     width: 400px;
-    min-height: 50vh;
+    //    min-height: 50vh;
 
     display: flex;
     flex-direction: column;
@@ -76,7 +89,7 @@ $themes: "light", "dark";
   }
 
   h2 {
-    color: $acColor;
+    color: $inverse;
     font-size: 2rem;
   }
   ul {
@@ -84,6 +97,7 @@ $themes: "light", "dark";
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10px 0 40px 0;
   }
   li {
     width: 80%;
@@ -92,6 +106,7 @@ $themes: "light", "dark";
     font-size: 1.7rem;
     padding: 0.5rem 0;
     border-radius: 5px;
+    margin: 0.1rem 0;
 
     color: $bgColor;
     background: linear-gradient(to right, $otherColor 50%, $titleColor 50%);
@@ -101,6 +116,8 @@ $themes: "light", "dark";
     transition: all 0.5s ease-in;
   }
   li:hover {
+    cursor: pointer;
+
     background-position: left;
     transition: all 0.5s ease-in;
   }
@@ -109,11 +126,56 @@ $themes: "light", "dark";
 //Theme selector
 @mixin themeselector($bgColor) {
   background-color: $bgColor;
+  border-radius: 5px 0 0 5px;
 
-  width: 5rem;
+  width: 4.5rem;
   position: fixed;
   top: 2rem;
   right: 0rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  li {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: capitalize;
+  }
+
+  ul {
+    height: 40px;
+  }
+
+  .themeSample {
+    height: 100%;
+    width: 100%;
+    opacity: 0%;
+    border-radius: 15px;
+  }
+
+  .themeSample:hover {
+    cursor: pointer;
+  }
+
+  #themeOptions:hover {
+    height: auto;
+
+    .themeOption {
+      visibility: visible;
+      position: static;
+    }
+  }
+
+  .themeOption {
+    border: $bgColor 3px solid;
+  }
+
+  .themeOption:hover {
+    border: 0px;
+  }
 }
 
 //Main structure
@@ -135,7 +197,13 @@ $themes: "light", "dark";
   color: $inverse1;
 
   #page1 {
-    @include characterSelection($primary2, $accent1, $accent2, $accent4);
+    @include characterSelection(
+      $primary2,
+      $accent1,
+      $accent2,
+      $accent4,
+      $inverse1
+    );
   }
 
   #themeSelect {
@@ -165,5 +233,17 @@ $themes: "light", "dark";
         #777572
       );
     }
+  }
+
+  ##{$theme}Theme {
+    @if $theme == "light" {
+      background-image: linear-gradient(45deg, #ffffff 50%, #ba181b 50%);
+    } @else if $theme == "dark" {
+      background-image: linear-gradient(45deg, #58534d 50%, #380000 50%);
+    }
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    transition: height 0.25s ease-in;
   }
 }

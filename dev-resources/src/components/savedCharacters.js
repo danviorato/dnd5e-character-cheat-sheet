@@ -1,5 +1,9 @@
-const savedCharacters = ({ text, onClick }) => {
-  return <li className="existingCharacters">{text}</li>;
+const savedCharacters = ({ text, toPages }) => {
+  return (
+    <li className="existingCharacters" onClick={() => toPages}>
+      {text}
+    </li>
+  );
 };
 
 export default savedCharacters;
