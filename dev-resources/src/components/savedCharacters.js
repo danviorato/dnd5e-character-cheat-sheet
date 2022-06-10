@@ -1,6 +1,6 @@
 const savedCharacters = ({ text, toPages }) => {
   return (
-    <li className="existingCharacters" onClick={() => toPages}>
+    <li className="existingCharacters" onClick={toPages}>
       {text}
     </li>
   );

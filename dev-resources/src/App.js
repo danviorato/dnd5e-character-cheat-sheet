@@ -4,23 +4,51 @@ import CharacterCreation from "./components/characterCreation.js";
 import CharacterSheet from "./components/characterSheet.js";
 import ThemeSelect from "./components/themeSelect.js";
 
+let currentTheme = JSON.parse(localStorage.getItem("theme"));
+
+if (!Boolean(currentTheme)) {
+  currentTheme = "light";
+}
+
 function App() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageOne, showPageOne] = useState(true);
+  const [pageTwo, showPageTwo] = useState(false);
+  const [pageThree, showPageThree] = useState(false);
+
   useEffect(() => {
-    let currentTheme = JSON.parse(localStorage.getItem("theme"));
-
-    if (!Boolean(currentTheme)) {
-      currentTheme = "light";
-    }
-
-    document.querySelector("main").classList.add(`theme-${currentTheme}`);
+    //document.querySelector("main").classList.add(`theme-${currentTheme}`);
   });
 
+  const changePage = (page) => {
+    switch (page) {
+      case 1:
+        showPageOne(true);
+        showPageTwo(false);
+        showPageThree(false);
+        break;
+      case 2:
+        showPageOne(false);
+        showPageTwo(true);
+        showPageThree(false);
+        break;
+      default:
+        showPageOne(false);
+        showPageTwo(false);
+        showPageThree(true);
+        break;
+    }
+  };
+
   return (
-    <main>
-      {currentPage === 1 && <CharacterSelection toPage={() => alert("Hola")} />}
-      {currentPage === 2 && <CharacterCreation />}
-      {currentPage === 3 && <CharacterSheet />}
+    <main className={`theme-${currentTheme}`}>
+      {pageOne && (
+        <CharacterSelection
+          toPageTwo={() => changePage(2)}
+          toPageThree={() => changePage(3)}
+        />
+      )}
+      {pageTwo && <CharacterCreation />}
+      {pageThree && <CharacterSheet />}
       <ThemeSelect />
     </main>
   );

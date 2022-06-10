@@ -7,7 +7,7 @@ if (!Boolean(existingCharacters)) {
   localStorage.setItem("characters", JSON.stringify(existingCharacters));
 }
 
-const characterSelection = (toPage) => {
+const characterSelection = ({ toPageTwo, toPageThree }) => {
   return (
     <section id="page1">
       <section id="characterSelection">
@@ -20,12 +20,13 @@ const characterSelection = (toPage) => {
             <SavedCharacters
               key={idx}
               text={"Get existing character names here"}
+              toPages={toPageThree}
             />
           ))}
           <SavedCharacters
             key={existingCharacters.length}
             text="Create new character"
-            toPages={toPage}
+            toPages={toPageTwo}
           />
         </ul>
       </section>
