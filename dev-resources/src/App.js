@@ -4,16 +4,17 @@ import CharacterCreation from "./components/characterCreation.js";
 import CharacterSheet from "./components/characterSheet.js";
 import ThemeSelect from "./components/themeSelect.js";
 
-let currentTheme = JSON.parse(localStorage.getItem("theme"));
+let currentTheme = localStorage.getItem("theme");
 
 if (!Boolean(currentTheme)) {
   currentTheme = "light";
+  localStorage.setItem("theme", currentTheme);
 }
 
 function App() {
-  const [pageOne, showPageOne] = useState(true);
-  const [pageTwo, showPageTwo] = useState(false);
-  const [pageThree, showPageThree] = useState(false);
+  const [pageOne, showPageOne] = useState(false); //Should be true
+  const [pageTwo, showPageTwo] = useState(true); //Should be false
+  const [pageThree, showPageThree] = useState(false); //Should be false
 
   useEffect(() => {
     //document.querySelector("main").classList.add(`theme-${currentTheme}`);
@@ -47,7 +48,7 @@ function App() {
           toPageThree={() => changePage(3)}
         />
       )}
-      {pageTwo && <CharacterCreation />}
+      {pageTwo && <CharacterCreation toPageOne={() => changePage(1)} />}
       {pageThree && <CharacterSheet />}
       <ThemeSelect />
     </main>

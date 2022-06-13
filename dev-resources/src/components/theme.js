@@ -1,4 +1,6 @@
-let currentTheme = JSON.parse(localStorage.getItem("theme"));
+let currentTheme = localStorage.getItem("theme");
+
+if (!Boolean(currentTheme)) currentTheme = "light";
 
 function changeTheme(theme) {
   const mainObj = document.querySelector("main");
@@ -8,7 +10,7 @@ function changeTheme(theme) {
   mainObj.classList.remove(oldTheme);
   mainObj.classList.add(newTheme);
 
-  localStorage.setItem("theme", JSON.stringify(theme));
+  localStorage.setItem("theme", theme);
 
   document
     .querySelectorAll(".themeOption")
@@ -24,6 +26,7 @@ const Theme = ({ text }) => {
     <li
       id={`${text}Theme`}
       className={`themeOption${currentTheme === text ? "" : " hidden"}`}
+      onClick={() => changeTheme(text)}
     >
       <button
         id={`${text}Sample`}

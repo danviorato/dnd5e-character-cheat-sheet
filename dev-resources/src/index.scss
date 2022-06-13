@@ -53,8 +53,86 @@ $accentColor: null;
 /******************************************
 /* MIXINS
 /*******************************************/
+@mixin simpleBtn($bgColor, $fontColor, $height: 40px, $width: 80px) {
+  height: $height;
+  width: $width;
+  background-color: $bgColor;
+  color: $fontColor;
+  padding: 0;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 
-//Character creation
+  &:hover {
+    background-color: darken($color: $bgColor, $amount: 20%);
+  }
+
+  &:active {
+    background-color: darken($color: $bgColor, $amount: 40%);
+  }
+}
+
+/******************************************
+/* COMPONENT THEMES
+/*******************************************/
+
+//Theme selector
+@mixin themeSelector($bgColor) {
+  background-color: $bgColor;
+  border-radius: 5px 0 0 5px;
+
+  width: 4.5rem;
+  position: fixed;
+  top: 20px;
+  right: 0rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  li {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: capitalize;
+  }
+
+  ul {
+    height: 40px;
+  }
+
+  .themeSample {
+    height: 100%;
+    width: 100%;
+    opacity: 0%;
+    border-radius: 15px;
+  }
+
+  .themeSample:hover {
+    cursor: pointer;
+  }
+
+  #themeOptions:hover {
+    height: auto;
+
+    .themeOption {
+      visibility: visible;
+      position: static;
+    }
+  }
+
+  .themeOption {
+    border: $bgColor 3px solid;
+  }
+
+  .themeOption:hover {
+    border: 0px;
+  }
+}
+
+//Character selection
 @mixin characterSelection(
   $bgColor,
   $acColor,
@@ -123,58 +201,93 @@ $accentColor: null;
   }
 }
 
-//Theme selector
-@mixin themeselector($bgColor) {
-  background-color: $bgColor;
-  border-radius: 5px 0 0 5px;
+//Character creation
+@mixin characterCreation($bgColor, $fontColor, $accentColor) {
+  #titles {
+    background-color: $bgColor;
+    color: $fontColor;
+    height: 60px;
+    min-width: 1080px;
 
-  width: 4.5rem;
-  position: fixed;
-  top: 2rem;
-  right: 0rem;
+    h1 {
+      color: $fontColor;
+      position: absolute;
+      top: 5px;
+      left: 0rem;
+      margin: 0 25px;
+      text-align: center;
+      font-size: 2rem;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
-  li {
-    margin: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-transform: capitalize;
-  }
-
-  ul {
-    height: 40px;
-  }
-
-  .themeSample {
-    height: 100%;
-    width: 100%;
-    opacity: 0%;
-    border-radius: 15px;
-  }
-
-  .themeSample:hover {
-    cursor: pointer;
-  }
-
-  #themeOptions:hover {
-    height: auto;
-
-    .themeOption {
-      visibility: visible;
-      position: static;
+    h2 {
+      margin: 0;
+      text-align: center;
+      font-size: 3rem;
+      padding: 1rem 0 1.5rem 0;
     }
   }
 
-  .themeOption {
-    border: $bgColor 3px solid;
-  }
+  #characterCreation {
+    display: flex;
 
-  .themeOption:hover {
-    border: 0px;
+    #traits ul {
+      background-color: $bgColor;
+      width: 240px;
+      height: calc(100vh - 120px);
+
+      .characterTrait {
+        height: 6rem;
+        border-top: $accentColor 2px solid;
+        border-left: $bgColor 30px solid;
+        border-right: $bgColor 30px solid;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $accentColor;
+          border: none;
+        }
+      }
+
+      .showTraitOptions {
+        background-color: white;
+        height: 6rem;
+      }
+    }
+
+    #characterCreationMain {
+      width: 100%;
+      min-width: 840px;
+      display: flex;
+
+      #traitOptions {
+        width: 50%;
+      }
+
+      #traitDescription {
+        width: 50%;
+      }
+    }
+  }
+  footer {
+    height: 60px;
+    min-width: 1080px;
+    background-color: $bgColor;
+
+    #btnReturnPageOne {
+      @include simpleBtn($fontColor, $bgColor, $width: 120px);
+      position: fixed;
+      left: 30px;
+    }
+
+    #btnCreateCharacter {
+      @include simpleBtn($fontColor, $bgColor, $width: 120px);
+      position: fixed;
+      right: 30px;
+    }
   }
 }
 
@@ -196,6 +309,10 @@ $accentColor: null;
   background-color: $primary1;
   color: $inverse1;
 
+  #themeSelect {
+    @include themeSelector($primary3);
+  }
+
   #page1 {
     @include characterSelection(
       $primary2,
@@ -206,8 +323,8 @@ $accentColor: null;
     );
   }
 
-  #themeSelect {
-    @include themeselector($primary3);
+  #page2 {
+    @include characterCreation($accent3, $primary1, $accent1);
   }
 }
 
