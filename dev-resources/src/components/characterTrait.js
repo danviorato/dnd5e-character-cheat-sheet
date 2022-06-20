@@ -7,17 +7,20 @@ const showTrait = (trait) => {
   }
 };
 
-const CharacterTrait = ({ trait }) => {
+const CharacterTrait = ({ trait, getData }) => {
   return (
     <li
       id={`trait${trait}Li`}
       className={`${trait === "Race" ? " showTraitOptions" : "characterTrait"}`}
-      onClick={() => showTrait(trait)}
+      onClick={() => {
+        showTrait(trait);
+        getData();
+      }}
     >
       {/* <span className="traitSelected" id={`${trait}Selected`}>
         WIP
       </span> */}
-      <span id={`trait${trait}Ph`} className="traitName">
+      <span id={`trait${trait}Ph`} className="traitName centeredTrait">
         {trait}
       </span>
     </li>

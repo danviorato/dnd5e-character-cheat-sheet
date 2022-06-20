@@ -210,6 +210,7 @@ $accentColor: null;
     min-width: 1080px;
 
     h1 {
+      width: 190px;
       color: $fontColor;
       position: absolute;
       top: 5px;
@@ -244,6 +245,7 @@ $accentColor: null;
         border-top: $accentColor 2px solid;
         border-left: $bgColor 30px solid;
         border-right: $bgColor 30px solid;
+        color: $fontColor;
 
         &:hover {
           cursor: pointer;
@@ -253,8 +255,17 @@ $accentColor: null;
       }
 
       .showTraitOptions {
-        background-color: white;
+        background-color: $fontColor;
         height: 6rem;
+        color: $bgColor;
+      }
+
+      .centeredTrait {
+        display: inline-block;
+        width: 100%;
+        margin: 1.5rem 0;
+        text-align: center;
+        font-size: 3rem;
       }
     }
 
@@ -272,6 +283,7 @@ $accentColor: null;
       }
     }
   }
+
   footer {
     height: 60px;
     min-width: 1080px;
@@ -363,4 +375,11 @@ $accentColor: null;
     border-radius: 15px;
     transition: height 0.25s ease-in;
   }
+}
+
+/******************************************
+/* MEDIA QUERIES
+/*******************************************/
+
+@media (max-height: 500px) {
 }
